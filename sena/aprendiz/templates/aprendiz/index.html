@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Aprendices - SENA</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Listado de Aprendices</h1>
+        <p>A continuación se muestran los aprendices registrados en el sistema:</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>Documento</th>
+                        <th>Teléfono</th>
+                        <th>Correo Electrónico</th>
+                        <th>Programa de Formación y Ficha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for aprendiz in aprendices %}
+                    <tr>
+                        <td>{{ aprendiz.nombre }} {{ aprendiz.apellido }}</td>
+                        <td>{{ aprendiz.documento }}</td>
+                        <td>{{ aprendiz.telefono }}</td>
+                        <td>{{ aprendiz.correo }}</td>
+                        <td>
+                            {% if aprendiz.programa %}
+                                {{ aprendiz.programa.nombre }} - Ficha: {{ aprendiz.programa.ficha }}
+                            {% else %}
+                                Sin programa asignado
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="empty-state">No hay aprendices registrados actualmente.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>
